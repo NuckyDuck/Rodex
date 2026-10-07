@@ -131,6 +131,7 @@ export type LoyaltyMember = {
   lastVisit: string
   motorcycleIds: string[]
   active: boolean
+  joinedAt?: string
 }
 
 export type PointMovement = {
@@ -148,6 +149,8 @@ export type Referral = {
   referrer: string
   referred: string
   date: string
+  email?: string
+  phone?: string
   orderId?: string
   canceled?: boolean
 }
@@ -374,10 +377,10 @@ export const initialRodexSettings: RodexSettings = {
 
 export const initialLoyaltyState: LoyaltyDemoState = {
   members: [
-    { customer: 'Laura Mendoza', points: 1240, earnedPoints: 3580, redeemedPoints: 2340, visitCount: 8, lastVisit: '2026-10-04', motorcycleIds: ['RX-004821'], active: true },
-    { customer: 'Daniel Rojas', points: 860, earnedPoints: 2460, redeemedPoints: 1600, visitCount: 5, lastVisit: '2026-09-30', motorcycleIds: ['RX-004822'], active: true },
-    { customer: 'Santiago Pérez', points: 420, earnedPoints: 950, redeemedPoints: 530, visitCount: 3, lastVisit: '2026-08-02', motorcycleIds: ['RX-004823'], active: true },
-    { customer: 'Valentina Gil', points: 2480, earnedPoints: 5200, redeemedPoints: 2720, visitCount: 7, lastVisit: '2026-09-28', motorcycleIds: ['RX-004824'], active: true },
+    { customer: 'Laura Mendoza', points: 1240, earnedPoints: 3580, redeemedPoints: 2340, visitCount: 8, lastVisit: '2026-10-04', motorcycleIds: ['RX-004821'], active: true, joinedAt: '2025-03-10' },
+    { customer: 'Daniel Rojas', points: 860, earnedPoints: 2460, redeemedPoints: 1600, visitCount: 5, lastVisit: '2026-09-30', motorcycleIds: ['RX-004822'], active: true, joinedAt: '2025-06-15' },
+    { customer: 'Santiago Pérez', points: 420, earnedPoints: 950, redeemedPoints: 530, visitCount: 3, lastVisit: '2026-08-02', motorcycleIds: ['RX-004823'], active: true, joinedAt: '2026-03-01' },
+    { customer: 'Valentina Gil', points: 2480, earnedPoints: 5200, redeemedPoints: 2720, visitCount: 7, lastVisit: '2026-09-28', motorcycleIds: ['RX-004824'], active: true, joinedAt: '2026-10-01' },
   ],
   ledger: [
     { id: 'pts-001', date: '2026-10-04', customer: 'Laura Mendoza', concept: 'Mantenimiento preventivo pagado', orderId: 'OT-000242', amount: 145, type: 'Ganado' },

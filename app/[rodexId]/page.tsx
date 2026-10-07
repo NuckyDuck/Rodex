@@ -1,0 +1,47 @@
+'use client'
+
+import type { ReactNode } from 'react'
+import QRCode from 'qrcode'
+import { Bike, CalendarDays, CheckCircle2, Gauge, ShieldCheck, Wrench } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+
+const history = [
+  { date: '04 OCT 2026', km: '24.850 km', title: 'Servicio de mantenimiento', details: ['Cambio de aceite', 'Lubricación de cadena', 'Inspección general'] },
+  { date: '18 JUL 2026', km: '22.100 km', title: 'Mantenimiento preventivo', details: ['Cambio de aceite', 'Cambio de filtro'] },
+  { date: '02 ABR 2026', km: '19.600 km', title: 'Kit de arrastre', details: ['Cadena', 'Piñón', 'Catalina'] },
+]
+
+export default async function RodexIdPage({ params }: { params: Promise<{ rodexId: string }> }) {
+  const { rodexId } = await params
+  const decodedRodexId = decodeURIComponent(rodexId)
+  const id = (decodedRodexId.split('=')[1] ?? decodedRodexId).toUpperCase()
+  const plate = id === 'RX-004821' ? 'ABC123' : 'ABC123'
+  const seed = id.split('').reduce((total, character) => total + character.charCodeAt(0), 0)
+  const publicOrigin = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'
+  const qrDataUrl = await QRCode.toDataURL(`${publicOrigin}/rodexid=${id}`, { margin: 1, width: 260, errorCorrectionLevel: 'H', color: { dark: '#050505', light: '#ffffff' } })
+
+  return <main className="min-h-screen bg-[#080a0b] px-4 py-5 text-zinc-100 sm:px-6 sm:py-8">
+    <div className="mx-auto flex max-w-[760px] flex-col gap-4">
+      <header className="flex items-center justify-between px-1"><div className="flex items-center gap-2"><div className="flex size-9 items-center justify-center rounded-xl bg-[#ed1c24] text-lg font-black italic">R</div><div className="text-lg font-black tracking-[0.15em]">RODE<span className="text-[#ed1c24]">X</span></div></div><ShieldCheck className="size-5 text-zinc-400" /></header>
+      <Card className="overflow-hidden border-zinc-800 bg-[#101314]">
+        <div className="border-b border-zinc-800 bg-gradient-to-br from-[#1b2023] via-[#111416] to-[#0b0d0e] p-5 sm:p-7"><div className="text-xs font-semibold tracking-[0.18em] text-zinc-400">RODEX ID</div><div className="mt-1 flex flex-wrap items-center justify-between gap-3"><h1 className="text-4xl font-black tracking-tight sm:text-5xl">{id}</h1><Badge className="gap-1 border-emerald-500/30 bg-emerald-500/15 text-emerald-300"><CheckCircle2 className="size-3" /> Moto verificada</Badge></div></div>
+        <CardContent className="flex flex-col gap-6 p-4 sm:p-7">
+          <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-[#15191b]"><div className="relative flex min-h-56 items-end overflow-hidden bg-gradient-to-br from-zinc-700 via-zinc-900 to-black p-5 sm:min-h-72 sm:p-7"><div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(237,28,36,.24),transparent_38%)]" /><div className="relative"><p className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Motocicleta verificada</p><h2 className="mt-2 text-3xl font-black sm:text-4xl">Hunk 160 2V</h2><p className="mt-2 text-sm text-zinc-400">Hero · Modelo 2024 · Negro / Rojo</p></div><Bike className="absolute right-8 top-8 size-32 text-zinc-500/30 sm:right-16 sm:top-10 sm:size-48" /></div><div className="grid gap-4 p-4 sm:grid-cols-[1fr_190px] sm:items-center sm:p-6"><div className="grid grid-cols-2 gap-3 sm:grid-cols-3"><PublicStat label="Placa" value={plate} /><PublicStat label="Kilometraje" value="24.850 km" /><PublicStat label="Cilindraje" value="160 cc" /></div><div className="mx-auto rounded-xl border-4 border-[#ed1c24] bg-white p-2"><img src={qrDataUrl} alt={`Código QR del RODEX ID ${id}`} className="size-36" /></div></div></div>
+          <div className="grid gap-3 sm:grid-cols-3"><div className="rounded-2xl border border-zinc-800 bg-[#15191b] p-4 sm:col-span-2"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500">Ficha del automotor</p><div className="mt-3 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4"><PublicStat label="Marca" value="Hero" /><PublicStat label="Modelo" value="Hunk 160 2V" /><PublicStat label="Año" value="2024" /><PublicStat label="Color" value="Negro / Rojo" /></div></div><div className="rounded-2xl border border-[#ed1c24]/30 bg-[#ed1c24]/5 p-4"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#ed1c24]">Propietario</p><p className="mt-3 font-bold">Laura Mendoza</p><p className="mt-1 text-sm text-zinc-400">Vehículo registrado y verificado</p></div></div><h2 className="text-2xl font-bold sm:text-3xl">Esta es la historia de tu moto</h2>
+          <div className="grid gap-3 sm:grid-cols-3"><InfoCard icon={<Wrench />} label="Último mantenimiento" value="04 OCT 2026" tone="green" /><InfoCard icon={<CalendarDays />} label="Próximo mantenimiento" value="27.000 km" tone="amber" /><InfoCard icon={<ShieldCheck />} label="Servicios registrados" value="18" tone="slate" /></div>
+          <section><div className="mb-3 flex items-center justify-between"><h2 className="text-xl font-bold">Historial de mantenimientos</h2><span className="text-xs text-zinc-500">Actualizado hoy</span></div><div className="relative flex flex-col gap-3 pl-4 before:absolute before:bottom-4 before:left-[7px] before:top-4 before:w-px before:bg-zinc-700">{history.map((event, index) => <article key={event.date} className="relative rounded-2xl border border-zinc-800 bg-[#15191b] p-4 pl-6"><span className={`absolute -left-[5px] top-6 size-3 rounded-full border-2 border-[#101314] ${index === 0 ? 'bg-emerald-400' : 'bg-zinc-400'}`} /><div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs"><span className="font-semibold text-zinc-200">{event.date}</span><span className="text-zinc-500">{event.km}</span></div><h3 className="mt-2 font-bold">{event.title}</h3><ul className="mt-1 list-disc pl-4 text-sm text-zinc-400">{event.details.map((detail) => <li key={detail}>{detail}</li>)}</ul></article>)}</div></section>
+          <section className="rounded-2xl border border-zinc-700 bg-[#15191b] p-4 sm:p-5"><div className="flex items-center justify-between"><h2 className="font-bold">Estado de tu moto</h2><Badge variant="outline" className="border-emerald-500/40 text-emerald-300">Activa</Badge></div><div className="mt-3 grid gap-2 sm:grid-cols-2"><div className="flex items-center gap-3 rounded-xl border border-emerald-500/70 bg-emerald-500/10 p-3 text-emerald-300"><CheckCircle2 className="size-5" /> <span className="font-semibold">Mantenimiento al día</span></div><div className="flex items-center gap-3 rounded-xl border border-amber-500/70 bg-amber-500/10 p-3 text-amber-300"><CalendarDays className="size-5" /> <span className="font-semibold">Próximo en 2.150 km</span></div></div><div className="mt-4 grid grid-cols-2 gap-3 text-sm text-zinc-400"><span>Propietario</span><strong className="text-right text-zinc-200">Laura Mendoza</strong><span>Última revisión</span><strong className="text-right text-zinc-200">04 OCT 2026</strong></div></section>
+        </CardContent>
+      </Card>
+      <p className="pb-3 text-center text-xs text-zinc-600">Información protegida por RODEX</p>
+    </div>
+  </main>
+}
+
+function PublicStat({ label, value }: { label: string; value: string }) { return <div><p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">{label}</p><p className="mt-1 font-bold text-zinc-100">{value}</p></div> }
+
+function InfoCard({ icon, label, value, tone }: { icon: ReactNode; label: string; value: string; tone: 'green' | 'amber' | 'slate' }) {
+  const colors = { green: 'text-emerald-300', amber: 'text-amber-300', slate: 'text-zinc-300' }
+  return <div className="rounded-2xl border border-zinc-800 bg-[#15191b] p-4"><div className={colors[tone]}>{icon}</div><p className="mt-3 text-xs text-zinc-500">{label}</p><p className="mt-1 font-bold">{value}</p></div>
+}

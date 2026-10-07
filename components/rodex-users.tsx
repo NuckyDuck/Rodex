@@ -189,10 +189,10 @@ export function RodexUsersModule() {
       </div>
 
       <Tabs defaultValue="equipo" className="gap-5">
-        <TabsList className="flex h-auto w-full justify-start gap-1 overflow-x-auto rounded-xl border border-zinc-800 bg-[#101213] p-1 sm:w-fit">
-          <TabsTrigger value="equipo" className="min-h-9 px-3 text-xs">Equipo</TabsTrigger>
-          <TabsTrigger value="roles" className="min-h-9 px-3 text-xs">Roles y permisos</TabsTrigger>
-          <TabsTrigger value="auditoria" className="min-h-9 px-3 text-xs">Auditoría</TabsTrigger>
+        <TabsList className="rodex-tab-strip flex h-auto w-full flex-nowrap justify-start gap-1 overflow-x-auto overflow-y-hidden rounded-xl border border-zinc-800 bg-[#101213] p-1 sm:w-fit md:flex-wrap md:overflow-x-visible md:overflow-y-visible">
+          <TabsTrigger value="equipo" className="min-h-9 flex-none px-3 text-xs">Equipo</TabsTrigger>
+          <TabsTrigger value="roles" className="min-h-9 flex-none px-3 text-xs">Roles y permisos</TabsTrigger>
+          <TabsTrigger value="auditoria" className="min-h-9 flex-none px-3 text-xs">Auditoría</TabsTrigger>
         </TabsList>
 
         <TabsContent value="equipo" className="flex flex-col gap-4">

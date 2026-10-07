@@ -142,8 +142,8 @@ export function RodexLoyaltyModule() {
     <div className="flex min-w-0 flex-col gap-5">
       <DemoNotice>Los puntos salen de servicios y compras vinculados a una OT pagada. Los cambios del demo se conservan durante esta sesión y no sustituyen la validación real del taller.</DemoNotice>
       <Tabs defaultValue="programa" className="gap-5">
-        <TabsList className="flex h-auto w-full justify-start gap-1 overflow-x-auto rounded-xl border border-zinc-800 bg-[#101213] p-1 sm:w-fit">
-          {loyaltyTabs.map((tab) => <TabsTrigger key={tab.id} value={tab.id} className="min-h-9 px-3 text-xs">{tab.label}</TabsTrigger>)}
+        <TabsList className="rodex-tab-strip flex h-auto w-full flex-nowrap justify-start gap-1 overflow-x-auto overflow-y-hidden rounded-xl border border-zinc-800 bg-[#101213] p-1 sm:w-fit md:flex-wrap md:overflow-x-visible md:overflow-y-visible">
+          {loyaltyTabs.map((tab) => <TabsTrigger key={tab.id} value={tab.id} className="min-h-9 flex-none px-3 text-xs">{tab.label}</TabsTrigger>)}
         </TabsList>
 
         <TabsContent value="programa" className="flex flex-col gap-5">

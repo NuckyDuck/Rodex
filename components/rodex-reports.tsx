@@ -296,8 +296,8 @@ export function RodexReportsModule() {
       {exportMessage && <p role="status" className="rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 text-[11px] text-zinc-400">{exportMessage}</p>}
 
       <Tabs defaultValue="general" className="gap-5">
-        <TabsList className="flex h-auto w-full justify-start gap-1 overflow-x-auto rounded-xl border border-zinc-800 bg-[#101213] p-1">
-          {reportTabs.map((tab) => <TabsTrigger key={tab.id} value={tab.id} className="min-h-9 shrink-0 px-3 text-[11px]">{tab.label}</TabsTrigger>)}
+        <TabsList className="rodex-tab-strip flex h-auto w-full flex-nowrap justify-start gap-1 overflow-x-auto overflow-y-hidden rounded-xl border border-zinc-800 bg-[#101213] p-1 md:flex-wrap md:overflow-x-visible md:overflow-y-visible">
+          {reportTabs.map((tab) => <TabsTrigger key={tab.id} value={tab.id} className="min-h-9 flex-none px-3 text-[11px]">{tab.label}</TabsTrigger>)}
         </TabsList>
 
         <TabsContent value="general" className="flex flex-col gap-4">

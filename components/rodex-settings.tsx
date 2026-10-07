@@ -80,8 +80,8 @@ export function RodexSettingsModule() {
     <div className="flex min-w-0 flex-col gap-5">
       <DemoNotice>El centro de reglas RODEX. Los cambios se aplican a la sesión del demo; no modifican una base de datos ni activan una integración de producción.</DemoNotice>
       <Tabs value={category} onValueChange={(value) => { setCategory(value as SettingsCategory); setSaved(false) }} className="gap-5">
-        <TabsList className="flex h-auto w-full justify-start gap-1 overflow-x-auto rounded-xl border border-zinc-800 bg-[#101213] p-1 sm:w-full xl:flex-wrap">
-          {categories.map((item) => <TabsTrigger key={item.id} value={item.id} className="min-h-9 shrink-0 gap-1.5 px-3 text-[11px]"><item.icon data-icon="inline-start" />{item.label}</TabsTrigger>)}
+        <TabsList className="rodex-tab-strip flex h-auto w-full flex-nowrap justify-start gap-1 overflow-x-auto overflow-y-hidden rounded-xl border border-zinc-800 bg-[#101213] p-1 md:flex-wrap md:overflow-x-visible md:overflow-y-visible">
+          {categories.map((item) => <TabsTrigger key={item.id} value={item.id} className="min-h-9 flex-none gap-1.5 px-3 text-[11px]"><item.icon data-icon="inline-start" />{item.label}</TabsTrigger>)}
         </TabsList>
         <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-2"><Badge variant="outline" className="border-zinc-700 text-[10px] text-zinc-400">{categories.find((item) => item.id === category)?.label}</Badge><p className="text-[10px] text-zinc-600">Reglas del negocio de motocicletas y servicio RODEX</p></div><div className="flex gap-2"><Button type="button" variant="outline" onClick={resetCategory} className="h-8 border-zinc-700 text-[10px]"><RotateCcw data-icon="inline-start" />Restaurar categoría</Button>{saved && <span role="status" className="flex items-center gap-1 text-[10px] text-emerald-300"><Check className="size-3" /> Actualizado en esta sesión</span>}</div></div>
 
